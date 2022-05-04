@@ -1,7 +1,7 @@
 // require express
 const express = require('express');
-// require sequelize
-const sequelize = require('sequelize');
+// require mongoose
+const mongoose = require('mongoose');
 // require routes when set up
 
 // declare PORT
@@ -16,7 +16,14 @@ app.use(express.urlencoded({ extended: true }));
 
 // use routes when set up
 
-// sync sequelize models to database, listen on port
-sequelize.sync({ force: false }).then(() => {
-    app.listen(PORT, () => console.log(`Now listening on PORT ${3001}`));
+// connect to mongoose database
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/rport', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
 });
+
+// Log mongo queries being executed
+mongoose.set('debug', true);
+
+// listen on PORT
+app.listen(PORT, () => console.log(`Now listening on PORT ${PORT}`));
