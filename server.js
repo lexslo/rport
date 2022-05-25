@@ -3,6 +3,7 @@ const express = require('express');
 // require mongoose
 const mongoose = require('mongoose');
 // require routes when set up
+const routes = require('./routes');
 
 // declare PORT
 const PORT = process.env.PORT || 3001;
@@ -15,6 +16,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // use routes when set up
+app.use(routes);
 
 // connect to mongoose database
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/rport', {
